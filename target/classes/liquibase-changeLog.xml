@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <databaseChangeLog
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+            xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+        <!-- Создание таблицы Laptop -->
+        <changeSet id="create.table.laptop" author="author">
+            <createTable tableName="laptop">
+                <column name="id" type="INT" autoIncrement="true">
+                    <constraints primaryKey="true" nullable="false"/>
+                </column>
+                <column name="brand" type="VARCHAR(255)">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="model" type="VARCHAR(255)">
+                    <constraints nullable="false"/>
+                </column>
+            </createTable>
+        </changeSet>
+
+        <!-- Создание таблицы Selection -->
+        <changeSet id="create.table.selection" author="author">
+            <createTable tableName="selection">
+                <column name="id" type="INT" autoIncrement="true">
+                    <constraints primaryKey="true" nullable="false"/>
+                </column>
+                <column name="id_laptop" type="INT">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="element" type="VARCHAR(255)">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="create_date" type="TIMESTAMP">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="last_update" type="TIMESTAMP">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="status" type="VARCHAR(255)">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="description" type="VARCHAR(255)">
+                    <constraints nullable="false"/>
+                </column>
+            </createTable>
+        </changeSet>
+
+        <!-- Создание внешнего ключа на таблицу Laptop в таблице Selection -->
+        <changeSet id="add.foreign.key.laptop_id_in_selection" author="author">
+            <addForeignKeyConstraint baseTableName="selection" baseColumnNames="id_laptop"
+                                     constraintName="fk_selection_laptop_id"
+                                     referencedTableName="laptop"
+                                     referencedColumnNames="id"/>
+        </changeSet>
+
+        <!-- Добавление индекса на столбец status в таблице Selection -->
+        <changeSet id="add.index.status_in_selection" author="author">
+            <createIndex tableName="selection" indexName="idx_status" unique="false">
+                <column name="status"/>
+            </createIndex>
+        </changeSet>
+
+    </databaseChangeLog>
