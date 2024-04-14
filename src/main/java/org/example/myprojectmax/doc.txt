@@ -123,6 +123,7 @@ Selection
     private Integer idLaptop;
     private SelectionStatus status;
     private String description;
+    private String managerName;
     }
 
 8. Поиск Laptop по ID
