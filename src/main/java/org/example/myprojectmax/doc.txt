@@ -1,0 +1,162 @@
+localhost:8080/swagger-ui/index.html
+
+
+Laptop
+
+    private Integer id;
+    private String brand;
+    private String model;
+    private List<Selection> selections;
+
+Selection
+
+    private Integer id;
+    private Laptop laptop;
+    private String element;
+    private LocalDateTime createDate;
+    private LocalDateTime lastUpdate;
+    private SelectionStatus status;
+    private String description;
+
+Запросы
+
+1. Создать новый ноутбук
+запрос: LaptopCreateRequestDto
+    {
+    private String brand;
+    private String model;
+    }
+ответ: LaptopCreateResponseDto
+    {
+    private Integer id;
+    private String brand;
+    private String model;
+    }
+
+2. Создать заказ:
+      - ноутбук
+      - описание
+запрос:
+   {
+    private Integer idLaptop;
+    private String description;
+   }
+ответ:
+    {
+    private Integer idSelection;
+    private Integer idLaptop;
+    private String element;
+    private LocalDateTime createDate;
+    private LocalDateTime lastUpdate;
+    private SelectionStatus status;
+    private String description;
+    }
+
+3. Внести изменения в заказ (конфигурация, статус, описание)
+запрос:
+    {
+    private Integer idSelection;
+    private String element;
+    private SelectionStatus status;
+    private String description;
+    }
+ответ:
+    {
+    private Integer id;
+    private Integer idLaptop;
+    private String element; - обновлен
+    private LocalDateTime createDate;
+    private LocalDateTime lastUpdate; - обновлен
+    private SelectionStatus status; - обновлен
+    private String description; - обновлен
+    }
+
+4. Поиск заказа по id
+запрос:
+    {
+    private Integer idSelection;
+    }
+ответ:
+    {
+    private Integer id;
+    private Integer idLaptop;
+    private String element;
+    private LocalDateTime createDate;
+    private LocalDateTime lastUpdate;
+    private OrderStatus status;
+    private String description;
+    }
+
+5. Поиск всех заказов
+ответ:
+	List<
+    {
+    private Integer id;
+    private Integer idLaptop;
+    private SelectionStatus status;
+    private String description;
+    }
+	>
+
+6. Поиск заказов по статусу
+запрос:
+    {
+    private SelectionStatus status;
+    }
+ответ:
+    {
+    private Integer idSelection;
+    private Integer idLaptop;
+    private SelectionStatus status;
+    private String description;
+    }
+
+7. Поиск заказов по дате создания
+
+запрос:
+    {
+     private LocalDateTime createDate;
+    }
+ответ:
+    {
+    private Integer idSelection;
+    private Integer idLaptop;
+    private SelectionStatus status;
+    private String description;
+    }
+
+8. Поиск Laptop по ID
+запрос:
+    {
+   private Integer id;
+    }
+ответ:
+    {
+    private Integer idLaptop;
+    private String brand;
+    private String model;
+    }
+
+9. Поиск Laptop по brand
+запрос:
+    {
+    private String brand;
+    }
+ответ:
+    {
+    private Integer id;
+    private String brand;
+    private String model;
+    }
+
+10. Поиск Laptop по model
+запрос: LaptopCreateRequestDto
+    {
+    private String model;
+    }
+ответ: LaptopCreateResponseDto
+    {
+    private Integer id;
+    private String brand;
+    private String model;
+    }
