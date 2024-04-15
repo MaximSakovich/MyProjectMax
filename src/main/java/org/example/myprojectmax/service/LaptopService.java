@@ -5,10 +5,12 @@ import org.example.myprojectmax.dto.laptopDto.LaptopCreateRequestDto;
 import org.example.myprojectmax.dto.laptopDto.LaptopCreateResponseDto;
 import org.example.myprojectmax.entity.Laptop;
 import org.example.myprojectmax.repository.LaptopRepository;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@ComponentScan
 public class LaptopService {
 
     private final LaptopRepository repository;

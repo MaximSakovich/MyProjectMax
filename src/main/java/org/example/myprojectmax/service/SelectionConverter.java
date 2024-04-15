@@ -4,14 +4,12 @@ import org.example.myprojectmax.dto.selectionDto.SelectionCreateOrUpdateResponse
 import org.example.myprojectmax.dto.selectionDto.SelectionCreateRequestDto;
 import org.example.myprojectmax.dto.selectionDto.SelectionResponseDto;
 import org.example.myprojectmax.dto.selectionDto.SelectionUpdateRequestDto;
-import org.example.myprojectmax.entity.Laptop;
 import org.example.myprojectmax.entity.Selection;
-import org.example.myprojectmax.repository.SelectionRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 @Service
+@ComponentScan
 public class SelectionConverter {
     public SelectionCreateOrUpdateResponseDto toCreateDto(Selection selection) {
         SelectionCreateOrUpdateResponseDto dto = new SelectionCreateOrUpdateResponseDto();

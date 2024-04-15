@@ -1,6 +1,7 @@
 package org.example.myprojectmax.service;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.example.myprojectmax.dto.selectionDto.SelectionCreateOrUpdateResponseDto;
 import org.example.myprojectmax.dto.selectionDto.SelectionCreateRequestDto;
 import org.example.myprojectmax.dto.selectionDto.SelectionResponseDto;
@@ -8,13 +9,16 @@ import org.example.myprojectmax.entity.Laptop;
 import org.example.myprojectmax.entity.Selection;
 import org.example.myprojectmax.entity.SelectionStatus;
 import org.example.myprojectmax.repository.SelectionRepository;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Data
 @Service
 @AllArgsConstructor
+@ComponentScan
 public class SelectionService {
     private final SelectionRepository selectionRepository;
     private final LaptopService laptopService;

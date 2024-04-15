@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 class SelectionServiceTest {
@@ -55,21 +56,36 @@ class SelectionServiceTest {
             verify(converter, times(2)).toDto(any());
         }
 
-        @Test
-        void testFindById() {
-            // Arrange
-            int id = 1;
-            Selection selection = new Selection();
-            selection.setId(id);
-            when(selectionRepository.findById(id)).thenReturn(Optional.of(selection));
+    @Test
+    void testFindById() {
+        // Arrange
+        int id = 1;
 
-            // Act
-            SelectionResponseDto result = selectionService.findById(id);
+        // Создаем фиктивный объект Laptop
+        Laptop laptop = new Laptop();
+        laptop.setId(123); // Устанавливаем идентификатор ноутбука
+        laptop.setBrand("TestBrand"); // Устанавливаем бренд ноутбука
+        laptop.setModel("TestModel"); // Устанавливаем модель ноутбука
 
-            // Assert
-            assertEquals(id, result.getId());
-            verify(converter).toDto(selection);
-        }
+        Selection selection = new Selection();
+        selection.setId(id);
+        selection.setLaptop(laptop); // Устанавливаем объект Laptop в Selection
+
+        when(selectionRepository.findById(id)).thenReturn(Optional.of(selection));
+
+        // Act
+        SelectionResponseDto result = selectionService.findById(id);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(id, result.getId());
+
+        // Проверяем информацию о ноутбуке через объект SelectionResponseDto
+        assertNotNull(result.getIdLaptop());
+        assertEquals(laptop.getId(), result.getIdLaptop()); // Проверка идентификатора ноутбука
+        verify(converter).toDto(selection);
+    }
+
 
 
 
@@ -144,32 +160,55 @@ class SelectionServiceTest {
 
     @Test
     void testFindSelectionsByStatus() {
-        // Arrange
         SelectionStatus status = SelectionStatus.OPEN;
-        List<Selection> selections = Arrays.asList(new Selection(), new Selection());
+
+        Laptop laptop1 = new Laptop();
+        laptop1.setId(1);
+        laptop1.setBrand("Brand1");
+        laptop1.setModel("Model1");
+        Laptop laptop2 = new Laptop();
+        laptop2.setId(2);
+        laptop2.setBrand("Brand2");
+        laptop2.setModel("Model2");
+
+        Selection selection1 = new Selection();
+        selection1.setLaptop(laptop1);
+        Selection selection2 = new Selection();
+        selection2.setLaptop(laptop2);
+        List<Selection> selections = Arrays.asList(selection1, selection2);
         when(selectionRepository.findAllByStatus(status)).thenReturn(selections);
         when(converter.toDto(any())).thenReturn(new SelectionResponseDto());
 
-        // Act
         List<SelectionResponseDto> result = selectionService.findSelectionsByStatus(status);
 
-        // Assert
         assertEquals(2, result.size());
         verify(converter, times(2)).toDto(any());
     }
 
     @Test
     void testFindSelectionsByCreateDate() {
-        // Arrange
         LocalDateTime createDate = LocalDateTime.now();
-        List<Selection> selections = Arrays.asList(new Selection(), new Selection());
+
+        Laptop laptop1 = new Laptop();
+        laptop1.setId(1);
+        laptop1.setBrand("Brand1");
+        laptop1.setModel("Model1");
+
+        Laptop laptop2 = new Laptop();
+        laptop2.setId(2);
+        laptop2.setBrand("Brand2");
+        laptop2.setModel("Model2");
+
+        Selection selection1 = new Selection();
+        selection1.setLaptop(laptop1);
+        Selection selection2 = new Selection();
+        selection2.setLaptop(laptop2);
+        List<Selection> selections = Arrays.asList(selection1, selection2);
         when(selectionRepository.findAllByCreateDate(createDate)).thenReturn(selections);
         when(converter.toDto(any())).thenReturn(new SelectionResponseDto());
 
-        // Act
         List<SelectionResponseDto> result = selectionService.findSelectionsByCreateDate(createDate);
 
-        // Assert
         assertEquals(2, result.size());
         verify(converter, times(2)).toDto(any());
     }

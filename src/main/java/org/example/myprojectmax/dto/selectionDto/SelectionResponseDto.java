@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.myprojectmax.entity.SelectionStatus;
 
+import javax.swing.*;
 import java.time.LocalDateTime;
 
 @Data
