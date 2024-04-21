@@ -16,7 +16,7 @@ public class GmailConfig {
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587); // Использую порт 587 для TLS, 465 для SSL
         mailSender.setUsername("maximsakovich@gmail.com");
-        mailSender.setPassword("Sakovich10!");
+        mailSender.setPassword("password");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
